@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Search with Popup Modal</title>
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    />
+    <style>
+        .filter-container {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            background-color: #f9f9f9;
+        }
+        .filter-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .item-card {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .item-card:hover {
+            transform: scale(1.05);
+        }
+        .item-icon {
+            font-size: 40px;
+            color: #007bff;
+        }
+        .item-subtitle {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        .tag-label {
+            margin-left: 5px;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        .sidebar {
+            position: sticky;
+            top: 20px;
+        }
+        .modal-body {
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Dynamic Search with Popup Modal</h1>
+        <div class="row mt-4">
+            <!-- Grid of Items -->
+            <div class="col-lg-8 col-md-7">
+                <div class="row" id="dataList">
+                    <div class="col-md-6 col-lg-4 mb-4" data-tags="Kurz Stáž Osobní_rozvoj" data-country="Jihočeský kraj" data-subtitle="A crunchy and sweet fruit" data-detail="Apples are rich in fiber, vitamin C, and antioxidants. Great for a healthy snack.">
+                        <div class="item-card">
+                            <div class="item-icon">🍎</div>
+                            <div class="item-name">Nebojme se myslet!</div>
+                            <div class="item-subtitle">Filozofická soutěž pro studenty předposledních a absolventských ročníků středních škol</div>
+                            <a href="#" class="btn btn-info btn-sm mt-2 view-details" data-item="Filozofická soutěž pro studenty předposledních a absolventských ročníků středních škol" data-subtitle="Cílem projektu je podpořit rozvoj kritického myšlení u studentů předposledních a především závěrečných ročníků středoškolského studia (pro účast v soutěži není nezbytné absolvování výuky filozofie v rámci ZSV nebo speciálního semináře: od soutěžících nebudou vyžadovány žádné konkrétní znalosti, pouze schopnost konstruktivního uvažování a zformulování vlastního názoru). Účastí na soutěži budou mít studenti možnost vyzkoušet si vytvoření vlastního filozofického textu ve formě úvahy a získat zpětnou vazbu prostřednictvím hodnocení, jež vypracují členové Katedry filozofie Filozofické fakulty UP v Olomouci. Tři nejlepší práce budou ohodnoceny věcnými cenami (Amazon Kindle). Z národního kola zároveň vzejde dvacet nejlepších studentů, kteří mohou soutěžit o účast na Mezinárodní filozofické olympiádě (IPO), do níž je soutěž „Nebojme se myslet“ národní kvalifikací. Do Mezinárodní filozofické olympiády postupují dva nejlepší studenti, kteří vzejdu z druhého kola soutěže.">View Details</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4" data-tags="Dobrovolnictví" data-country="Plzeňský kraj" data-subtitle="A soft and creamy fruit" data-detail="Bananas are high in potassium and vitamins. A great energy boost!">
+                        <div class="item-card">
+                            <div class="item-icon">🍌</div>
+                            <div class="item-name">Fulbrightovy stipendijní programy</div>
+                            <div class="item-subtitle">Prestižní Fulbrightovy stipendijní programy financované českou a americkou vládou poskytují českým občanům příležitost studovat, provádět výzkum či vyučovat v USA. Českým vzdělávacím a výzkumným institucím pak dávají možnost získat pedagoga nebo vědce z USA.</div>
+                            <a href="#" class="btn btn-info btn-sm mt-2 view-details" data-item="Prestižní Fulbrightovy stipendijní programy financované českou a americkou vládou poskytují českým občanům příležitost studovat, provádět výzkum či vyučovat v USA. Českým vzdělávacím a výzkumným institucím pak dávají možnost získat pedagoga nebo vědce z USA.">View Details</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4" data-tags="Dobrovolnictví Stipendium Biologie" data-country="Ústecký kraj" data-subtitle="A small and tart fruit" data-detail="Cherries are packed with antioxidants and anti-inflammatory compounds.">
+                        <div class="item-card">
+                            <div class="item-icon">🍒</div>
+                            <div class="item-name">Stipendia DAAD</div>
+                            <div class="item-subtitle">Stipendia DAAD přinášejí možnosti v podobě:</div>
+                            <a href="#" class="btn btn-info btn-sm mt-2 view-details" data-item="Cherry, A small and tart fruit, Cherries are packed with antioxidants and anti-inflammatory compounds.">View Details</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4" data-tags="Dobrovolnictví Stipendium Architektura" data-country="Moravskoslezský kraj" data-subtitle="A small and tart fruit" data-detail="Cherries are packed with antioxidants and anti-inflammatory compounds.">
+                        <div class="item-card">
+                            <div class="item-icon">🍌</div>
+                            <div class="item-name">Stipendia DAAD</div>
+                            <div class="item-subtitle">Stipendia DAAD přinášejí možnosti v podobě:</div>
+                            <a href="#" class="btn btn-info btn-sm mt-2 view-details" data-item="Cherry, A small and tart fruit, Cherries are packed with antioxidants and anti-inflammatory compounds.">View Details</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4" data-tags="Kurz Matematika" data-country="Moravskoslezský kraj" data-subtitle="A small and tart fruit" data-detail="Cherries are packed with antioxidants and anti-inflammatory compounds.">
+                        <div class="item-card">
+                            <div class="item-icon">🍒</div>
+                            <div class="item-name">Stipendia DAAD</div>
+                            <div class="item-subtitle">Stipendia DAAD přinášejí možnosti v podobě:</div>
+                            <a href="#" class="btn btn-info btn-sm mt-2 view-details" data-item="Cherry, A small and tart fruit, Cherries are packed with antioxidants and anti-inflammatory compounds.">View Details</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4" data-tags="Dobrovolnictví Stipendium Žurnalistika" data-country="celá ČR/online" data-subtitle="A small and tart fruit" data-detail="Cherries are packed with antioxidants and anti-inflammatory compounds.">
+                        <div class="item-card">
+                            <div class="item-icon">🍒</div>
+                            <div class="item-name">Stipendia DAAD</div>
+                            <div class="item-subtitle">Stipendia DAAD přinášejí možnosti v podobě:</div>
+                            <a href="#" class="btn btn-info btn-sm mt-2 view-details" data-item="Cherry, A small and tart fruit, Cherries are packed with antioxidants and anti-inflammatory compounds.">View Details</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4" data-tags="Stipendium Žurnalistika" data-country="celá ČR/online" data-subtitle="A small and tart fruit" data-detail="Cherries are packed with antioxidants and anti-inflammatory compounds.">
+                        <div class="item-card">
+                            <div class="item-icon">🍌</div>
+                            <div class="item-name">Stipendia DAAD</div>
+                            <div class="item-subtitle">Stipendia DAAD přinášejí možnosti v podobě:</div>
+                            <a href="#" class="btn btn-info btn-sm mt-2 view-details" data-item="Cherry, A small and tart fruit, Cherries are packed with antioxidants and anti-inflammatory compounds.">View Details</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4" data-tags="Žurnalistika" data-country="celá ČR/online" data-subtitle="A small and tart fruit" data-detail="Cherries are packed with antioxidants and anti-inflammatory compounds.">
+                        <div class="item-card">
+                            <div class="item-icon">✍️</div>
+                            <div class="item-name">Stipendia DAAD</div>
+                            <div class="item-subtitle">Stipendia DAAD přinášejí možnosti v podobě:</div>
+                            <a href="#" class="btn btn-info btn-sm mt-2 view-details" data-item="Cherry, A small and tart fruit, Cherries are packed with antioxidants and anti-inflammatory compounds.">View Details</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4" data-tags="Stipendium" data-country="celá ČR/online" data-subtitle="A small and tart fruit" data-detail="Cherries are packed with antioxidants and anti-inflammatory compounds.">
+                        <div class="item-card">
+                            <div class="item-icon">♊</div>
+                            <div class="item-name">Stipendia DAAD</div>
+                            <div class="item-subtitle">Stipendia DAAD přinášejí možnosti v podobě:</div>
+                            <a href="#" class="btn btn-info btn-sm mt-2 view-details" data-item="Cherry, A small and tart fruit, Cherries are packed with antioxidants and anti-inflammatory compounds.">View Details</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4" data-tags="Právo" data-country="Praha" data-subtitle="A small and tart fruit" data-detail="Cherries are packed with antioxidants and anti-inflammatory compounds.">
+                        <div class="item-card">
+                            <div class="item-icon">🚻</div>
+                            <div class="item-name">Stipendia DAAD</div>
+                            <div class="item-subtitle">Stipendia DAAD přinášejí možnosti v podobě:</div>
+                            <a href="#" class="btn btn-info btn-sm mt-2 view-details" data-item="Cherry, A small and tart fruit, Cherries are packed with antioxidants and anti-inflammatory compounds.">View Details</a>
+                        </div>
+                    </div>
+                    <!-- Add more items here -->
+                </div>
+            </div>
+
+            <!-- Sidebar with Filters -->
+            <div class="col-lg-4 col-md-5 sidebar">
+                <div class="filter-container">
+                    <div class="filter-title">Search and Filter</div>
+                    <!-- Search Input -->
+                    <input
+                        type="text"
+                        id="searchInput"
+                        class="form-control mb-3"
+                        placeholder="Search by name or subtitle..."
+                    />
+                    <!-- Tag Checkboxes (Tags Group) -->
+                    <div class="filter-title">Tags</div>
+                    <div id="tagCheckboxes" class="d-flex flex-wrap gap-2"></div>
+
+                    <!-- Country Checkboxes (New Group) -->
+                    <div class="filter-title">Country of Origin</div>
+                    <div id="countryCheckboxes" class="d-flex flex-wrap gap-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Item Details -->
+    <div class="modal fade" id="itemModal" tabindex="-1" aria-labelledby="itemModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="itemModalLabel">Item Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="itemDetails">
+                    <!-- Item details will be dynamically inserted here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        const searchInput = document.getElementById("searchInput");
+        const tagCheckboxesContainer = document.getElementById("tagCheckboxes");
+        const countryCheckboxesContainer = document.getElementById("countryCheckboxes");
+        const dataList = document.getElementById("dataList");
+        const listItems = dataList.getElementsByClassName("col-md-6");
+
+        // Extract tags dynamically
+        function getUniqueTags(attribute) {
+            const tagSet = new Set();
+            Array.from(listItems).forEach((item) => {
+                const tags = item.getAttribute(`data-${attribute}`).toLowerCase().split(", ");
+                tags.forEach((tag) => tagSet.add(tag));
+            });
+            return Array.from(tagSet);
+        }
+
+        // Generate checkboxes for tags or country
+        function renderCheckboxes(attribute, container) {
+            const items = getUniqueTags(attribute);
+            container.innerHTML = "";
+            items.forEach((item) => {
+                const checkboxWrapper = document.createElement("div");
+                const checkboxId = `${attribute}-${item}`;
+                checkboxWrapper.innerHTML = `
+                    <input type="checkbox" id="${checkboxId}" value="${item}" class="checkbox-filter">
+                    <label for="${checkboxId}">${item}<span class="tag-label" id="count-${checkboxId}">(0)</span></label>
+                `;
+                container.appendChild(checkboxWrapper);
+            });
+        }
+
+        // Update tag counts dynamically
+        function updateCounts() {
+            const checkboxes = document.querySelectorAll(".checkbox-filter");
+            checkboxes.forEach((checkbox) => {
+                const group = checkbox.id.split('-')[0];
+                const value = checkbox.value.toLowerCase();
+
+                const count = Array.from(listItems).filter((item) => {
+                    const itemTags = item.getAttribute(`data-${group}`).toLowerCase().split(", ");
+                    return itemTags.includes(value) && item.style.display !== "none";
+                }).length;
+
+                document.getElementById(`count-${checkbox.id}`).textContent = `(${count})`;
+            });
+        }
+
+        // Filter items based on search and selected tags/countries
+        function filterItems() {
+            const searchFilter = searchInput.value.toLowerCase();
+            const selectedTags = Array.from(document.querySelectorAll(".checkbox-filter:checked"))
+                .map((checkbox) => checkbox.value.toLowerCase());
+
+            Array.from(listItems).forEach((item) => {
+                const name = item.querySelector(".item-name").textContent.toLowerCase();
+                const subtitle = item.querySelector(".item-subtitle").textContent.toLowerCase();
+                const tags = item.getAttribute("data-tags").toLowerCase().split(", ");
+                const country = item.getAttribute("data-country").toLowerCase();
+
+                const matchesSearch = name.includes(searchFilter) || subtitle.includes(searchFilter);
+                const matchesTags = selectedTags.length === 0 || selectedTags.some((tag) => tags.includes(tag) || country.includes(tag));
+
+                item.style.display = matchesSearch && matchesTags ? "" : "none";
+            });
+
+            updateCounts();
+        }
+
+        // Initialize filters
+        renderCheckboxes("tags", tagCheckboxesContainer);
+        renderCheckboxes("country", countryCheckboxesContainer);
+        searchInput.addEventListener("input", filterItems);
+        tagCheckboxesContainer.addEventListener("change", filterItems);
+        countryCheckboxesContainer.addEventListener("change", filterItems);
+        updateCounts();
+
+        // Handle showing details in the modal
+        const itemModal = new bootstrap.Modal(document.getElementById('itemModal'));
+
+        document.querySelectorAll('.view-details').forEach(link => {
+            console.log(link)
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+
+                const parentItem = link.closest('.col-md-6');
+                const name = parentItem.querySelector('.item-name').textContent;
+                const subtitle = parentItem.querySelector('.item-subtitle').textContent;
+                const details = parentItem.getAttribute('data-detail');
+
+                // Update modal content
+                document.getElementById('itemModalLabel').textContent = name;
+                document.getElementById('itemDetails').innerHTML = `
+                    <p><strong>Subtitle:</strong> ${subtitle}</p>
+                    <p><strong>Details:</strong> ${details}</p>
+                `;
+
+                // Show modal
+                itemModal.show();
+            });
+        });
+    </script>
+
+ </body>
+</html>
